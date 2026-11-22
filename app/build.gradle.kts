@@ -86,6 +86,7 @@ dependencies {
 
     implementation("androidx.datastore:datastore-preferences:1.1.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.2")
     implementation("androidx.navigation:navigation-compose:2.8.2")
 
     implementation("androidx.core:core-ktx:1.13.1")

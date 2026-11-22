@@ -1,12 +1,12 @@
 package com.viorayls.app.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.viorayls.app.model.PlaybackState
 import com.viorayls.app.model.Track
 import com.viorayls.app.player.PlayerManager
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.viewModelScope
 
 class PlayerViewModel : ViewModel() {
     val playbackState: StateFlow<PlaybackState> = PlayerManager.stateFlow().stateIn(viewModelScope)
