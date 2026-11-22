@@ -1,0 +1,16 @@
+*.iml
+.gradle/
+local.properties
+**/build/
+.cxx/
+.cxx-android/
+.cxxDebug/
+.cxxRelease/
+.navigation/
+.precompile/
+.externalNative/
+.cxx/
+*.apk
+*.ap_
+*.aab
+.DS_Store

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <font name="sans_premium">@font/inter_regular</font>
+    <font name="sans_premium_bold">@font/inter_bold</font>
+    <font name="sans_premium_medium">@font/inter_medium</font>
+</resources>
