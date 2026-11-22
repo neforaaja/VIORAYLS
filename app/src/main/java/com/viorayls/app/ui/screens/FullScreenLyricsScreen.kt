@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -36,6 +37,7 @@ import androidx.navigation.NavHostController
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FullScreenLyricsScreen(
     navController: NavHostController,
@@ -47,6 +49,7 @@ fun FullScreenLyricsScreen(
     val track = state.track
     val lyricsResult by musicViewModel.lyricsResult.collectAsState()
     val lyricsState = rememberUpdatedState(lyricsResult)
+    val currentLyrics: LyricsResult = lyricsState.value
 
     LaunchedEffect(track) {
         track?.let { musicViewModel.loadLyrics(it) }
@@ -66,18 +69,18 @@ fun FullScreenLyricsScreen(
         modifier = Modifier.fillMaxSize()
     ) { padding ->
         Column(modifier = Modifier.fillMaxSize().padding(padding)) {
-            when (lyricsState.value) {
+            when (currentLyrics) {
                 is LyricsResult.Loading -> {
                     Text(text = "Loading lyrics...", modifier = Modifier.align(alignment = Alignment.CenterHorizontally))
                 }
                 is LyricsResult.NotFound -> {
-                    Text(text = lyricsState.value.message, style = MaterialTheme.typography.titleLarge)
+                    Text(text = currentLyrics.message, style = MaterialTheme.typography.titleLarge)
                 }
                 is LyricsResult.Error -> {
                     Text(text = "Failed to load lyrics.", style = MaterialTheme.typography.titleLarge)
                 }
                 is LyricsResult.Success -> {
-                    val lines = lyricsState.value.lines
+                    val lines = currentLyrics.lines
                     val currentIdx = if (lines.isNotEmpty()) {
                         LyricsSync.currentLineIndex(lines, state.positionMs)
                     } else -1
