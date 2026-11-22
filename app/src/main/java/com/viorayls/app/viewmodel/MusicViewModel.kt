@@ -8,9 +8,8 @@ import com.viorayls.app.repository.MusicRepository
 import com.viorayls.app.model.Track
 import com.viorayls.app.model.LyricsResult
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class MusicViewModel(application: Application) : AndroidViewModel(application) {
@@ -20,11 +19,8 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
     val tracks = MutableStateFlow<List<Track>>(emptyList())
     var loading = MutableStateFlow(false)
 
-    val lyricsResult: StateFlow<LyricsResult> = MutableStateFlow(LyricsResult.Loading).stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5000),
-        LyricsResult.Loading
-    )
+    private val _lyricsResult = MutableStateFlow(LyricsResult.Loading)
+    val lyricsResult: StateFlow<LyricsResult> = _lyricsResult.asStateFlow()
 
     fun search(term: String) {
         loading.value = true
@@ -38,7 +34,7 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
     fun loadLyrics(track: Track) {
         viewModelScope.launch {
             val result = lyricsRepository.fetchLyrics(track.title, track.artist, track.album, track.durationMs)
-            lyricsResult.value = result
+            _lyricsResult.value = result
         }
     }
 }
