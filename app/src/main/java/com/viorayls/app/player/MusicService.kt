@@ -54,7 +54,7 @@ class MusicService : Service() {
         val contentIntent = PendingIntent.getActivity(this, 0, Intent(this, MainActivity::class.java), PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
 
         return NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.drawable.ic_launcher)
+            .setSmallIcon(R.drawable.ic_sound_wave)
             .setContentTitle(title)
             .setContentText(artist)
             .setContentIntent(contentIntent)

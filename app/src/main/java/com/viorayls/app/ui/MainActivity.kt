@@ -2,11 +2,13 @@ package com.viorayls.app.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.BottomNavigation
-import androidx.compose.material3.BottomNavigationItem
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,7 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.vectorResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
@@ -34,7 +36,7 @@ import com.viorayls.app.viewmodel.PlayerViewModel
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate()
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_ALWAYS)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         val musicViewModel: MusicViewModel by viewModels { AndroidViewModelFactory(application) }
         val playerViewModel: PlayerViewModel by viewModels()
         setContent {
@@ -69,7 +71,7 @@ fun VioraylsNav(musicViewModel: MusicViewModel, playerViewModel: PlayerViewModel
                 }
                 composable("lyrics/{trackId}") {
                     val trackId = it.arguments?.getLong("trackId") ?: 0L
-                    FullScreenLyricsScreen(navController, trackId, playerViewModel)
+                    FullScreenLyricsScreen(navController, trackId, playerViewModel, musicViewModel)
                 }
             }
         }
@@ -87,12 +89,20 @@ fun BottomNav(navController: NavHostController) {
     val labels = mapOf("home" to "Home", "search" to "Search", "explore" to "Explore", "library" to "Library")
     var selected by remember { mutableStateOf("home") }
 
-    BottomNavigation(
-        backgroundColor = Color(0xFF121212)
+    NavigationBar(
+        containerColor = Color(0xFF121212)
     ) {
-        items.forEachIndexed { index, (route, iconRes) ->
+        items.forEach { (route, iconRes) ->
             val isSelected = selected == route
-            BottomNavigationItem(
+            NavigationBarItem(
+                selected = isSelected,
+                onClick = {
+                    selected = route
+                    navController.navigate(route) {
+                        popUpTo(navController.graph.startDestinationId) { inclusive = true }
+                        launchSingleTop = true
+                    }
+                },
                 icon = {
                     Icon(
                         imageVector = ImageVector.vectorResource(id = iconRes),
@@ -104,14 +114,6 @@ fun BottomNav(navController: NavHostController) {
                         text = labels[route] ?: "",
                         color = androidx.compose.material3.LocalContentColor.current.copy(alpha = if (isSelected) 1f else 0.5f)
                     )
-                },
-                selected = isSelected,
-                onClick = {
-                    selected = route
-                    navController.navigate(route) {
-                        popUpTo(navController.graph.startDestinationId) { inclusive = true }
-                        launchSingleTop = true
-                    }
                 }
             )
         }

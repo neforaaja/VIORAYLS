@@ -3,10 +3,9 @@ package com.viorayls.app.ui.theme
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.Color
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.unit.sp
-import com.viorayls.app.ui.theme.type.Inter
+import androidx.compose.ui.graphics.Color
+import com.viorayls.app.ui.theme.Inter
 
 private val DarkColorScheme = darkColorScheme(
     primary = Color(0xFFFFFFFF),

@@ -1,6 +1,6 @@
 package com.viorayls.app.api
 
-import com.viorayls.app.model.LrclibRecord
+import com.viorayls.app.api.model.LrclibRecord
 import retrofit2.http.GET
 import retrofit2.http.Query
 

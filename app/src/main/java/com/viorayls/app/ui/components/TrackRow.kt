@@ -17,8 +17,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.viorayls.app.R
 import com.viorayls.app.model.Track
 import coil.compose.rememberImagePainter
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 
 @Composable
 fun TrackRow(
@@ -41,7 +44,7 @@ fun TrackRow(
         }
         androidx.compose.material3.IconButton(onClick = onPlay) {
             androidx.compose.material3.Icon(
-                imageVector = androidx.compose.ui.graphics.vector.ImageVector.vectorResource(id = com.viorayls.app.R.drawable.ic_play),
+                imageVector = ImageVector.vectorResource(id = com.viorayls.app.R.drawable.ic_play),
                 contentDescription = "Play"
             )
         }

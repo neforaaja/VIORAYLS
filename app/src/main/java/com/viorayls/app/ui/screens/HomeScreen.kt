@@ -1,11 +1,11 @@
 package com.viorayls.app.ui.screens
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,7 +26,7 @@ fun HomeScreen(
     Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
         Text(text = "Home", style = MaterialTheme.typography.displayLarge)
         Text(text = "Browse your music", style = MaterialTheme.typography.bodyMedium)
-        androidx.compose.foundation.layout.Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(24.dp))
 
         sectionHeader("Trending", navController)
         sectionHeader("Albums", navController)
@@ -39,17 +39,17 @@ fun HomeScreen(
 
 @Composable
 private fun sectionHeader(title: String, navController: NavHostController) {
-    androidx.compose.foundation.layout.Row(
-        modifier = androidx.compose.foundation.layout.fillMaxWidth(),
+    Row(
+        modifier = Modifier.fillMaxWidth(),
         verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
     ) {
         Text(text = title, style = MaterialTheme.typography.titleLarge)
-        androidx.compose.foundation.layout.Spacer(modifier = androidx.compose.foundation.layout.weight(1f))
+        Spacer(modifier = Modifier.weight(1f))
         androidx.compose.material3.TextButton(
             onClick = { navController.navigate("search") }
         ) {
             Text(text = "View all")
         }
     }
-    androidx.compose.foundation.layout.Spacer(modifier = androidx.compose.foundation.layout.height(16.dp))
+    Spacer(modifier = Modifier.height(16.dp))
 }

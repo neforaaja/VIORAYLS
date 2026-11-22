@@ -16,8 +16,11 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
@@ -50,15 +53,13 @@ fun MiniPlayer(playerViewModel: PlayerViewModel, onOpenPlayer: () -> Unit) {
             }
             IconButton(onClick = { playerViewModel.playPause() }) {
                 Icon(
-                    imageVector = androidx.compose.ui.graphics.vector.ImageVector.vectorResource(
-                        id = if (state.isPlaying) R.drawable.ic_pause else R.drawable.ic_play
-                    ),
+                    imageVector = ImageVector.vectorResource(id = if (state.isPlaying) R.drawable.ic_pause else R.drawable.ic_play),
                     contentDescription = if (state.isPlaying) "Pause" else "Play"
                 )
             }
             IconButton(onClick = onOpenPlayer) {
                 Icon(
-                    imageVector = androidx.compose.ui.graphics.vector.ImageVector.vectorResource(id = R.drawable.ic_more),
+                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_more),
                     contentDescription = "More"
                 )
             }

@@ -2,7 +2,7 @@ name: Android Build - VIORAYLS
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -22,24 +22,26 @@ jobs:
           java-version: '17'
 
       - name: Set up Android SDK
-        uses: android-actions/setup-android@v4
-        with:
-          packages: 'platform-tools'
+        uses: android-actions/setup-android@v3
+
+      - name: Accept Android SDK licenses
+        run: yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses > /dev/null 2>&1 || true
 
       - name: Install Android SDK components
         run: |
-          sdkmanager --licenses
-          sdkmanager \
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager \
+            "platform-tools" \
             "platforms;android-34" \
             "build-tools;34.0.0"
 
-      - name: Grant execute permission
+      - name: Grant execute permission to gradlew
         run: chmod +x ./gradlew
 
       - name: Build Debug APK
-        run: ./gradlew --no-daemon assembleDebug
+        run: ./gradlew assembleDebug
 
       - name: Upload VIORAYLS Debug APK
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: VIORAYLS-debug-APK
@@ -47,8 +49,10 @@ jobs:
           retention-days: 14
           if-no-files-found: error
 
-      - name: Build failure diagnostics
+      - name: Show build failure diagnostics
         if: failure()
         run: |
-          echo "VIORAYLS BUILD FAILED"
-          ls -la app/build/outputs/apk/debug/ || true
+          echo "========== BUILD FAILED - VIORAYLS =========="
+          echo "APK path check:"
+          ls -la app/build/outputs/apk/debug/ 2>/dev/null || echo "No APK output directory found"
+          echo "========== END BUILD DIAGNOSTICS =========="

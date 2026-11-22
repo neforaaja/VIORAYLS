@@ -1,7 +1,6 @@
 package com.viorayls.app.player
 
 import android.content.Context
-import androidx.lifecycle.FlowAndroidLifecycle
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import com.viorayls.app.model.PlaybackState

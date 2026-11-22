@@ -35,12 +35,12 @@ data class LrclibRecord(
     private fun parseLrcTime(tag: String): Long {
         // [mm:ss.xx] or [mm:ss.x]
         val parts = tag.split(":")
-        if (parts.size < 2) return 0
-        val minutes = parts[0].toIntOrNull() ?: 0
+        if (parts.size < 2) return 0L
+        val minutes = parts[0].toLongOrNull() ?: 0L
         val secPart = parts[1]
         val secSec = secPart.split(".")
-        val seconds = secSec[0].toIntOrNull() ?: 0
-        val millis = secSec.getOrNull(1)?.take(3).padEnd(3, '0').toIntOrNull() ?: 0
+        val seconds = secSec[0].toLongOrNull() ?: 0L
+        val millis = secSec.getOrNull(1)?.toString()?.toLongOrNull() ?: 0L
         return (minutes * 60 + seconds) * 1000 + millis
     }
 }

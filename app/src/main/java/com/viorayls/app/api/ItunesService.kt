@@ -1,6 +1,6 @@
 package com.viorayls.app.api
 
-import com.viorayls.app.model.ItunesResponse
+import com.viorayls.app.api.model.ItunesResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

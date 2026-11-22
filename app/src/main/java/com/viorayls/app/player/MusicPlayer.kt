@@ -23,17 +23,17 @@ class MusicPlayer(private val context: Context) {
 
     init {
         player.addListener(object : Player.Listener {
-            override fun onPlaybackStateChanged(@Player.State playbackState: Int) {
+            override fun onPlaybackStateChanged(playbackState: Int) {
                 val current = _state.value
                 _state.value = current.copy(
                     isPlaying = playbackState == Player.STATE_READY && player.isPlaying
                 )
             }
-            override fun onPositionDiscontinuity(@Player.PositionInfo oldPosition, @Player.PositionInfo newPosition, @Player.DiscontinuityReason reason: Int) {
-                val current = _state.value
-                _state.value = current.copy(positionMs = player.currentPosition)
-            }
-            override fun onPositionDiscontinuity(@Player.PositionInfo oldPosition, @Player.PositionInfo newPosition) {
+            override fun onPositionDiscontinuity(
+                oldPosition: Player.PositionInfo,
+                newPosition: Player.PositionInfo,
+                reason: Int
+            ) {
                 val current = _state.value
                 _state.value = current.copy(positionMs = player.currentPosition)
             }

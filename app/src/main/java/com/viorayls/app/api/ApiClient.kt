@@ -1,5 +1,6 @@
 package com.viorayls.app.api
 
+import com.google.gson.Gson
 import com.viorayls.app.util.AppConstants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -15,16 +16,18 @@ object ApiClient {
         .readTimeout(AppConstants.READ_TIMEOUT_SECONDS, java.util.concurrent.TimeUnit.SECONDS)
         .build()
 
+    private val gson = Gson()
+
     private val retrofit = Retrofit.Builder()
         .baseUrl(AppConstants.ITUNES_BASE_URL)
         .client(client)
-        .addConverterFactory(GsonConverterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
 
     private val lrclibRetrofit = Retrofit.Builder()
         .baseUrl(AppConstants.LRCLIB_BASE_URL)
         .client(client)
-        .addConverterFactory(GsonConverterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
 
     val itunesService: ItunesService by lazy { retrofit.create(ItunesService::class.java) }

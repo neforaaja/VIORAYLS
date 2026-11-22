@@ -5,11 +5,16 @@ import androidx.lifecycle.viewModelScope
 import com.viorayls.app.model.PlaybackState
 import com.viorayls.app.model.Track
 import com.viorayls.app.player.PlayerManager
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 
 class PlayerViewModel : ViewModel() {
-    val playbackState: StateFlow<PlaybackState> = PlayerManager.stateFlow().stateIn(viewModelScope)
+    val playbackState: StateFlow<PlaybackState> = PlayerManager.stateFlow().stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000),
+        PlaybackState(track = null, isPlaying = false)
+    )
 
     fun play(track: Track) {
         PlayerManager.instance.load(track)
