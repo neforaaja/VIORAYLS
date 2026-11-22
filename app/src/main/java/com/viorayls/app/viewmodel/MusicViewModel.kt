@@ -19,7 +19,7 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
     val tracks = MutableStateFlow<List<Track>>(emptyList())
     var loading = MutableStateFlow(false)
 
-    private val _lyricsResult = MutableStateFlow(LyricsResult.Loading)
+    private val _lyricsResult = MutableStateFlow<LyricsResult>(LyricsResult.Loading)
     val lyricsResult: StateFlow<LyricsResult> = _lyricsResult.asStateFlow()
 
     fun search(term: String) {
