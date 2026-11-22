@@ -12,7 +12,7 @@ class MusicRepository(private val context: Context) {
         return try {
             val response = ApiClient.itunesService.search(term)
             if (!response.isSuccessful) throw HttpException(response)
-            response.body?.toTracks() ?: emptyList()
+            response.body()?.toTracks() ?: emptyList()
         } catch (e: Exception) {
             emptyList()
         }

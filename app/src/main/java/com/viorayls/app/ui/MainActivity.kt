@@ -30,13 +30,19 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.viorayls.app.R
+import com.viorayls.app.ui.screens.ExploreScreen
+import com.viorayls.app.ui.screens.FullScreenLyricsScreen
+import com.viorayls.app.ui.screens.HomeScreen
+import com.viorayls.app.ui.screens.LibraryScreen
+import com.viorayls.app.ui.screens.PlayerScreen
+import com.viorayls.app.ui.screens.SearchScreen
 import com.viorayls.app.ui.theme.AppTheme
 import com.viorayls.app.viewmodel.MusicViewModel
 import com.viorayls.app.viewmodel.PlayerViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate()
+        super.onCreate(savedInstanceState)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         val musicViewModel: MusicViewModel by viewModels { AndroidViewModelFactory(application) }
         val playerViewModel: PlayerViewModel by viewModels()

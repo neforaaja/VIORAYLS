@@ -45,7 +45,7 @@ fun MiniPlayer(playerViewModel: PlayerViewModel, onOpenPlayer: () -> Unit) {
             Image(
                 painter = rememberImagePainter(track.artworkUrl ?: ""),
                 contentDescription = null,
-                modifier = Modifier.size(44.dp).clip(CircleShape).clickable(onOpenPlayer)
+                modifier = Modifier.size(44.dp).clip(CircleShape).clickable { onOpenPlayer() }
             )
             Column(modifier = Modifier.weight(1f).padding(horizontal = 12.dp)) {
                 Text(text = track.title, style = MaterialTheme.typography.titleMedium, maxLines = 1)

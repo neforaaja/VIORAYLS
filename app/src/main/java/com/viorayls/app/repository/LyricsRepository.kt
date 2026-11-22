@@ -2,7 +2,6 @@ package com.viorayls.app.repository
 
 import com.viorayls.app.api.ApiClient
 import com.viorayls.app.api.model.LrclibRecord
-import com.viorayls.app.model.LyricLine
 import com.viorayls.app.model.LyricsResult
 import retrofit2.HttpException
 import retrofit2.Response
@@ -23,7 +22,7 @@ class LyricsRepository {
                 albumName = album,
                 duration = (durationMs / 1000).toInt()
             )
-            var record = response.body
+            var record = response?.body()
 
             // Step 2: exact match without duration
             if (record == null || response?.isSuccessful == false) {
@@ -33,13 +32,13 @@ class LyricsRepository {
                     albumName = null,
                     duration = null
                 )
-                record = response.body
+                record = response?.body()
             }
 
             // Step 3: broad search fallback
             if ((record == null || response?.isSuccessful == false) && title.isNotEmpty()) {
                 val searchResponse = ApiClient.lrclibService.search(q = "$title $artist")
-                val list: List<LrclibRecord>? = searchResponse.body
+                val list: List<LrclibRecord>? = searchResponse.body()
                 if (list != null && list.isNotEmpty()) {
                     record = list.first()
                 }

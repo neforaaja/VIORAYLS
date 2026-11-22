@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -64,7 +65,7 @@ fun PlayerScreen(
                 Image(
                     painter = rememberImagePainter(t.artworkUrl ?: ""),
                     contentDescription = null,
-                    modifier = Modifier.size(260.dp).clip(androidx.compose.foundation.shape.CornerSize(24.dp)).align(alignment = Alignment.CenterHorizontally)
+                    modifier = Modifier.size(260.dp).clip(RoundedCornerShape(24.dp)).align(alignment = Alignment.CenterHorizontally)
                 )
                 Spacer(modifier = Modifier.height(24.dp))
                 Text(text = t.title, style = MaterialTheme.typography.displayLarge, modifier = Modifier.align(alignment = Alignment.CenterHorizontally))

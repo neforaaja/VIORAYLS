@@ -57,6 +57,8 @@ class MusicPlayer(private val context: Context) {
             track = track,
             isPlaying = true,
             positionMs = 0,
+            bufferedMs = 0,
+            durationMs = player.duration,
             repeatMode = _state.value.repeatMode,
             shuffle = _state.value.shuffle
         )
